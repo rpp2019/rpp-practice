@@ -1,8 +1,18 @@
 package rpppractice.jpa;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 /**
@@ -11,11 +21,12 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name="Artikl.findAll", query="SELECT a FROM Artikl a")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Artikl implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="ARTIKL_ID_GENERATOR", sequenceName="ARTIKL_SEQ")
+	@SequenceGenerator(name="ARTIKL_ID_GENERATOR", sequenceName="ARTIKL_SEQ", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ARTIKL_ID_GENERATOR")
 	private Integer id;
 
@@ -25,6 +36,7 @@ public class Artikl implements Serializable {
 
 	//bi-directional many-to-one association to StavkaPorudzbine
 	@OneToMany(mappedBy="artikl")
+	@JsonIgnore
 	private List<StavkaPorudzbine> stavkaPorudzbines;
 
 	public Artikl() {
