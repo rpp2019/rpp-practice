@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,25 +38,25 @@ public class ArtiklRestController {
 	}
 	
 	@PostMapping("artikl")
-	public HttpEntity<HttpStatus> addOne(@RequestBody Artikl artikl) {
+	public 	ResponseEntity<HttpStatus> addOne(@RequestBody Artikl artikl) {
 		artiklRepository.save(artikl);
-		return new HttpEntity<HttpStatus>(HttpStatus.CREATED);
+		return new ResponseEntity<HttpStatus>(HttpStatus.CREATED);
 	}
 	
 	@PutMapping("artikl/{id}")
-	public HttpEntity<HttpStatus> update(@RequestBody Artikl artikl, @PathVariable("id") Integer id){
+	public ResponseEntity<HttpStatus> update(@RequestBody Artikl artikl, @PathVariable("id") Integer id){
 		if (artiklRepository.existsById(id)) {
 			artikl.setId(id);
 			artiklRepository.save(artikl);
-			return new HttpEntity<HttpStatus>(HttpStatus.OK);
+			return new ResponseEntity<HttpStatus>(HttpStatus.OK);
 		}
 		
-		return new HttpEntity<HttpStatus>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<HttpStatus>(HttpStatus.NO_CONTENT);
 		
 	}
 	
 	@DeleteMapping("artikl/{id}")
-	public HttpEntity<HttpStatus> delete(@PathVariable("id") Integer id){
+	public ResponseEntity<HttpStatus> delete(@PathVariable("id") Integer id){
 		
 		//zbog testova
 		if (id == -100 && !artiklRepository.existsById(-100)) {
@@ -65,10 +66,15 @@ public class ArtiklRestController {
 		
 		if(artiklRepository.existsById(id)) {
 			artiklRepository.deleteById(id);
-			return new HttpEntity<HttpStatus>(HttpStatus.OK);
+			return new ResponseEntity<HttpStatus>(HttpStatus.OK);
 		}
 		
-		return new HttpEntity<HttpStatus>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<HttpStatus>(HttpStatus.NO_CONTENT);
+	}
+	
+	@GetMapping("artikl/naziv/{naziv}")
+	public Collection<Artikl> findByNaziv(@PathVariable("naziv") String naziv){
+		return artiklRepository.findByNazivContainingIgnoreCase(naziv);
 	}
 
 }
