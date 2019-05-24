@@ -21,4 +21,18 @@ export class ArtiklService {
      });
    return this.dataChange.asObservable();
  }
+
+ public addArtikl(artikl: Artikl): void {
+  this.httpClient.post(this.API_URL, artikl).subscribe();
+}
+
+public updateArtikl(artikl: Artikl): void {
+  this.httpClient.put(this.API_URL + artikl.id, artikl).subscribe();
+}
+
+public deleteArtikl(id: number): void {
+  console.log(this.API_URL + id);
+  this.httpClient.delete(this.API_URL + id).subscribe();
+}
+
 }
