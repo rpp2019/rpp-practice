@@ -1,4 +1,5 @@
-import { AutomobilComponent } from './../../../rpp-practice/src/app/priprema/automobil/automobil.component';
+import { StavkaPorudzbineService } from 'src/app/service/stavkaPorudzbine.service';
+import { AutomobilComponent } from './priprema/automobil/automobil.component';
 import { AuthorComponent } from './core/author/author.component';
 import { AboutComponent } from './core/about/about.component';
 import { HomeComponent } from './core/home/home.component';
@@ -6,7 +7,7 @@ import { DobavljacService } from './service/dobavljac.service';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, MatGridListModule,
   MatExpansionModule, MatTableModule, MatToolbarModule, MatSelectModule, MatOptionModule, MatNativeDateModule,
-  MatDatepickerModule, MatSnackBarModule, MatDialogModule, MatInputModule, MatCheckboxModule } from '@angular/material';
+  MatDatepickerModule, MatSnackBarModule, MatDialogModule, MatInputModule, MatCheckboxModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
@@ -23,6 +24,7 @@ import { ArtiklDialogComponent } from './component/dialog/artikl-dialog/artikl-d
 import { DobavljacDialogComponent } from './component/dialog/dobavljac-dialog/dobavljac-dialog.component';
 import { PorudzbinaDialogComponent } from './component/dialog/porudzbina-dialog/porudzbina-dialog.component';
 import { PorudzbinaService } from './service/porudzbina.service';
+import { StavkaPorudzbineDialogComponent } from './component/dialog/stavka-porudzbine-dialog/stavka-porudzbine-dialog.component';
 import { VoziloComponent } from './priprema/vozilo/vozilo.component';
 
 const Routes = [{path: 'artikl', component: ArtiklComponent},
@@ -48,7 +50,8 @@ const Routes = [{path: 'artikl', component: ArtiklComponent},
     HomeComponent,
     ArtiklDialogComponent,
     DobavljacDialogComponent,
-    PorudzbinaDialogComponent
+    PorudzbinaDialogComponent,
+    StavkaPorudzbineDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -72,16 +75,19 @@ const Routes = [{path: 'artikl', component: ArtiklComponent},
     MatDialogModule,
     MatInputModule,
     FormsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
 
   entryComponents: [
     ArtiklDialogComponent,
     DobavljacDialogComponent,
-    PorudzbinaDialogComponent
+    PorudzbinaDialogComponent,
+    StavkaPorudzbineDialogComponent
   ],
 
-  providers: [ArtiklService, DobavljacService, PorudzbinaService],
+  providers: [ArtiklService, DobavljacService, PorudzbinaService, StavkaPorudzbineService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

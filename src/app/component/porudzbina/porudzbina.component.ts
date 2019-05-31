@@ -16,6 +16,8 @@ export class PorudzbinaComponent implements OnInit {
 
   dataSource: Observable<Porudzbina[]>;
 
+  selektovanaPorudzbina: Porudzbina;
+
   constructor(public porudzbinaService: PorudzbinaService, public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -25,6 +27,10 @@ export class PorudzbinaComponent implements OnInit {
   public loadData() {
     this.dataSource = this.porudzbinaService.getAllPorudzbina();
   }
+
+  public selectRow(row) {
+    this.selektovanaPorudzbina = row;
+}
 
   public openDialog(flag: number, id: number, datum: Date, isporuceno: Date, placeno: boolean, iznos: number, dobavljac: Dobavljac ) {
     const dialogRef = this.dialog.open(PorudzbinaDialogComponent,
